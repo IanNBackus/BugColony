@@ -1,7 +1,8 @@
 ﻿@page "/groups/edit"
 @using Microsoft.EntityFrameworkCore
 @using BugColonyProject.Models
-@inject IDbContextFactory<BugColonyProject.Data.BugColonyProjectContext> DbFactory
+@using BugColonyProject.Data
+@inject ApplicationDbContext DbContext;
 @inject NavigationManager NavigationManager
 
 <PageTitle>Edit</PageTitle>
@@ -61,8 +62,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        Group ??= await context.Group.FirstOrDefaultAsync(m => m.Id == Id);
+        Group ??= await DbContext.Group.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (Group is null)
         {
@@ -74,12 +74,11 @@ else
     // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task UpdateGroup()
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Attach(Group!).State = EntityState.Modified;
+        DbContext.Attach(Group!).State = EntityState.Modified;
 
         try
         {
-            await context.SaveChangesAsync();
+            await DbContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -98,7 +97,6 @@ else
 
     private bool GroupExists(int id)
     {
-        using var context = DbFactory.CreateDbContext();
-        return context.Group.Any(e => e.Id == id);
+        return DbContext.Group.Any(e => e.Id == id);
     }
 }

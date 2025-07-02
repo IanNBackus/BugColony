@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BugColonyProject.Data;
 
 namespace BugColonyProject.Models
 {
@@ -25,7 +24,7 @@ namespace BugColonyProject.Models
 
 
         //a list of references to the bugs (users) that belong to this group
-        public List<ApplicationUser> GroupMembers { get; set; }
+        //public List<ApplicationUser> GroupMembers { get; set; }
 
         //a list of mappable activities belonging to this group
         //public List<IMappable> Mappables { get; set; }

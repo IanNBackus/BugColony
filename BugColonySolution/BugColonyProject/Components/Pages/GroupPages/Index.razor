@@ -3,8 +3,7 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using BugColonyProject.Models
 @using BugColonyProject.Data
-@implements IAsyncDisposable
-@inject IDbContextFactory<BugColonyProject.Data.BugColonyProjectContext> DbFactory
+@inject ApplicationDbContext DbContext
 
 <PageTitle>Index</PageTitle>
 
@@ -14,7 +13,7 @@
     <a href="groups/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Group">
+<QuickGrid Class="table" Items="DbContext.Group">
     <PropertyColumn Property="group => group.Name" />
     <PropertyColumn Property="group => group.Description" />
     <PropertyColumn Property="group => group.Alliance" />
@@ -27,12 +26,6 @@
 </QuickGrid>
 
 @code {
-    private BugColonyProjectContext context = default!;
 
-    protected override void OnInitialized()
-    {
-        context = DbFactory.CreateDbContext();
-    }
-
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+    //public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }

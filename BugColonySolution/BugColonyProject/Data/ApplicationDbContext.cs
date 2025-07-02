@@ -1,3 +1,4 @@
+using BugColonyProject.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -5,5 +6,8 @@ namespace BugColonyProject.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
+
+        public DbSet<BugColonyProject.Models.Group> Group { get; set; } = default!;
+
     }
 }

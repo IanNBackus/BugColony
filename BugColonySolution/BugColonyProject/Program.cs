@@ -6,13 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
+using BugColonyProject.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-// primary database context for our custom bug-related application models (i.e. not the Identity models)
-builder.Services.AddDbContextFactory<BugColonyProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BugColonyProjectContext") ?? throw new InvalidOperationException("Connection string 'BugColonyProjectContext' not found.")));
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
@@ -33,9 +30,18 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+//establish the primary database context factory for the dependency injection
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+//register the ApplicationDbContext reference to utilize the factory
+builder.Services.AddScoped<ApplicationDbContext>(p => 
+    p.GetRequiredService<IDbContextFactory<ApplicationDbContext>>().CreateDbContext());
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 //Get me on the line with .NET headquarters, urgent message
 builder.Services.AddIdentityCore<ApplicationUser>(options => {

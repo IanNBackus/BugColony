@@ -1,8 +1,10 @@
 ﻿@page "/groups/create"
 @using Microsoft.EntityFrameworkCore
 @using BugColonyProject.Models
-@inject IDbContextFactory<BugColonyProject.Data.BugColonyProjectContext> DbFactory
+@using BugColonyProject.Data
+@inject ApplicationDbContext DbContext
 @inject NavigationManager NavigationManager
+@inherits OwningComponentBase
 
 <PageTitle>Create</PageTitle>
 
@@ -51,9 +53,8 @@
     // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddGroup()
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Group.Add(Group);
-        await context.SaveChangesAsync();
+        DbContext.Group.Add(Group);
+        await DbContext.SaveChangesAsync();
         NavigationManager.NavigateTo("/groups");
     }
 }

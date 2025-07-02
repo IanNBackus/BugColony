@@ -1,4 +1,4 @@
-using BugColonyProject.Data;
+using BugColonyProject.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace BugColonyProject.Components.Account

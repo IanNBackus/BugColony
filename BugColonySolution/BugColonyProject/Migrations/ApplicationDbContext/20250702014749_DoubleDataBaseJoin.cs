@@ -2,14 +2,21 @@
 
 #nullable disable
 
-namespace BugColonyProject.Migrations.BugColonyProject
+namespace BugColonyProject.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class DoubleDataBaseJoin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<bool>(
+                name: "IsJordan",
+                table: "AspNetUsers",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.CreateTable(
                 name: "Group",
                 columns: table => new
@@ -31,6 +38,10 @@ namespace BugColonyProject.Migrations.BugColonyProject
         {
             migrationBuilder.DropTable(
                 name: "Group");
+
+            migrationBuilder.DropColumn(
+                name: "IsJordan",
+                table: "AspNetUsers");
         }
     }
 }

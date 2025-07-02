@@ -1,7 +1,8 @@
 ﻿@page "/groups/details"
 @using Microsoft.EntityFrameworkCore
 @using BugColonyProject.Models
-@inject IDbContextFactory<BugColonyProject.Data.BugColonyProjectContext> DbFactory
+@using BugColonyProject.Data
+@inject ApplicationDbContext DbContext
 @inject NavigationManager NavigationManager
 
 <PageTitle>Details</PageTitle>
@@ -39,8 +40,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        group = await context.Group.FirstOrDefaultAsync(m => m.Id == Id);
+        group = await DbContext.Group.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (group is null)
         {

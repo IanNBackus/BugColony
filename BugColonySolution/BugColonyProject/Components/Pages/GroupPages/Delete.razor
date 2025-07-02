@@ -1,7 +1,8 @@
 ﻿@page "/groups/delete"
 @using Microsoft.EntityFrameworkCore
 @using BugColonyProject.Models
-@inject IDbContextFactory<BugColonyProject.Data.BugColonyProjectContext> DbFactory
+@using BugColonyProject.Data
+@inject ApplicationDbContext DbContext
 @inject NavigationManager NavigationManager
 
 <PageTitle>Delete</PageTitle>
@@ -44,8 +45,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        group = await context.Group.FirstOrDefaultAsync(m => m.Id == Id);
+        //using var context = DbContext;
+        group = await DbContext.Group.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (group is null)
         {
@@ -55,9 +56,9 @@
 
     private async Task DeleteGroup()
     {
-        using var context = DbFactory.CreateDbContext();
-        context.Group.Remove(group!);
-        await context.SaveChangesAsync();
+        //using var context = DbContext;
+        DbContext.Group.Remove(group!);
+        await DbContext.SaveChangesAsync();
         NavigationManager.NavigateTo("/groups");
     }
 }
