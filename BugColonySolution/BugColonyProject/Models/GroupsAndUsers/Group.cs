@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BugColonyProject.Models.Mappable;
 
-namespace BugColonyProject.Models
+namespace BugColonyProject.Models.GroupsAndUsers
 {
     //represents a given bug group (called a "colony" within the UI)
     public class Group
@@ -18,16 +19,16 @@ namespace BugColonyProject.Models
         public string Description { get; set; }
 
         //alliance the group belongs to (walkers, scuttlers, or flyers)
-        [EnumDataTypeAttribute(typeof(BugAlliance))]
+        [EnumDataType(typeof(BugAlliance))]
         [Required]
         public BugAlliance Alliance { get; set; }
 
 
         //a list of references to the bugs (users) that belong to this group
-        //public List<ApplicationUser> GroupMembers { get; set; }
+        public List<ApplicationUser> GroupMembers { get; set; }
 
         //a list of mappable activities belonging to this group
-        //public List<IMappable> Mappables { get; set; }
+        public List<IMappable> Mappables { get; set; }
 
     }
 }

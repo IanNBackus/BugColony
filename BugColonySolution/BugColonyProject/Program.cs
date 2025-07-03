@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
-using BugColonyProject.Models;
+using BugColonyProject.Models.GroupsAndUsers;
 
 
 var builder = WebApplication.CreateBuilder(args);

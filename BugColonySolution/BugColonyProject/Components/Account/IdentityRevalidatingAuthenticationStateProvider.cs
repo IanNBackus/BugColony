@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using BugColonyProject.Models;
+using BugColonyProject.Models.GroupsAndUsers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;

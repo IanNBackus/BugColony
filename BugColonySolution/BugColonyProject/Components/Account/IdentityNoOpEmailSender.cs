@@ -1,4 +1,4 @@
-using BugColonyProject.Models;
+using BugColonyProject.Models.GroupsAndUsers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 

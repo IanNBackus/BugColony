@@ -2,7 +2,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using BugColonyProject.Components.Account.Pages;
 using BugColonyProject.Components.Account.Pages.Manage;
-using BugColonyProject.Models;
+using BugColonyProject.Models.GroupsAndUsers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

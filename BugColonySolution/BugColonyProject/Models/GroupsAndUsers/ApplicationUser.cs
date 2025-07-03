@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace BugColonyProject.Models
+
+namespace BugColonyProject.Models.GroupsAndUsers
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
 
@@ -15,6 +16,9 @@ namespace BugColonyProject.Models
 
         // Utilized for Ian specific behavior
         public bool IsIan { get; set; } = false;
+
+        //a list of references to the bugs (users) that belong to this group
+        public List<Group> Groups { get; set; }
 
     }
 
