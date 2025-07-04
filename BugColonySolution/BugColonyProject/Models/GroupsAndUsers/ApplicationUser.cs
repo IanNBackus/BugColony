@@ -17,8 +17,11 @@ namespace BugColonyProject.Models.GroupsAndUsers
         // Utilized for Ian specific behavior
         public bool IsIan { get; set; } = false;
 
-        //a list of references to the bugs (users) that belong to this group
+        //a list of references to the colonies (groups) this user belongs to
         public List<Group> Groups { get; set; }
+
+        //a list of references to the groups that currently have outgoing invites to this user
+        public List<Group> GroupInvites { get; set; }
 
     }
 
