@@ -22,7 +22,7 @@ namespace BugColonyProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BugColonyProject.Models.ApplicationUser", b =>
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -93,7 +93,7 @@ namespace BugColonyProject.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("BugColonyProject.Models.Group", b =>
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,6 +115,39 @@ namespace BugColonyProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Group");
+                });
+
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.GroupInvite", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("GroupInvite");
+                });
+
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.GroupMembership", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ApplicationUserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("GroupMembership");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -250,6 +283,36 @@ namespace BugColonyProject.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.GroupInvite", b =>
+                {
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BugColonyProject.Models.GroupsAndUsers.GroupMembership", b =>
+                {
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -261,7 +324,7 @@ namespace BugColonyProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BugColonyProject.Models.ApplicationUser", null)
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -270,7 +333,7 @@ namespace BugColonyProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BugColonyProject.Models.ApplicationUser", null)
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -285,7 +348,7 @@ namespace BugColonyProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BugColonyProject.Models.ApplicationUser", null)
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -294,7 +357,7 @@ namespace BugColonyProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BugColonyProject.Models.ApplicationUser", null)
+                    b.HasOne("BugColonyProject.Models.GroupsAndUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

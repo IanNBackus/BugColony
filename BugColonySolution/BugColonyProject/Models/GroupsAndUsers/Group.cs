@@ -25,10 +25,13 @@ namespace BugColonyProject.Models.GroupsAndUsers
 
 
         //a list of references to the bugs (users) that belong to this group
-        public List<ApplicationUser> GroupMembers { get; set; }
+        public List<ApplicationUser> Members { get; set; }
+
+        //a list of references to the bugs (users) that have been invited to this group
+        public List<ApplicationUser> Invites { get; set; }
 
         //a list of mappable activities belonging to this group
-        public List<IMappable> Mappables { get; set; }
+        //public List<IMappable> Mappables { get; set; }
 
     }
 }

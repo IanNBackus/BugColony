@@ -21,7 +21,7 @@ namespace BugColonyProject.Models.GroupsAndUsers
         public List<Group> Groups { get; set; }
 
         //a list of references to the groups that currently have outgoing invites to this user
-        public List<Group> GroupInvites { get; set; }
+        public List<Group> Invites { get; set; }
 
     }
 
